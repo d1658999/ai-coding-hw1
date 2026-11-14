@@ -16,14 +16,18 @@ import {
   Shield,
   Trophy,
   Sparkles,
-  BookOpen,
-  Compass,
   CheckCircle2,
-  Scroll,
-  Zap,
   GraduationCap,
-  ExternalLink,
 } from "lucide-react";
+
+const SUBJECT_FILTERS: Record<string, string[]> = {
+  mandarin: ["國語文"],
+  math: ["數學領域"],
+  nature: ["生活課程", "自然科學"],
+  social: ["社會領域"],
+  english: ["英語文"],
+  tech: ["科技資訊"],
+};
 
 export default function HomePage() {
   const [currentGrade, setCurrentGrade] = useState<number>(1);
@@ -37,11 +41,27 @@ export default function HomePage() {
   useEffect(() => {
     try {
       const saved = localStorage.getItem("elementary_hero_defeated_bosses");
-      if (saved) {
-        setDefeatedBosses(JSON.parse(saved));
+      if (!saved) return;
+      const parsed: unknown = JSON.parse(saved);
+      if (!Array.isArray(parsed)) return;
+      const knownBossIds = new Set(
+        GRADES_DATA.flatMap((grade) => grade.bosses.map((boss) => boss.id))
+      );
+      const validBossIds: string[] = [];
+      for (const id of parsed) {
+        if (
+          typeof id === "string" &&
+          knownBossIds.has(id) &&
+          !validBossIds.includes(id)
+        ) {
+          validBossIds.push(id);
+        }
       }
+      // localStorage 僅能在客戶端讀取，於 effect 同步可避免 hydration 不一致
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setDefeatedBosses(validBossIds);
     } catch {
-      // 容錯防禦
+      // 容錯防禦：忽略損毀的本機存檔
     }
   }, []);
 
@@ -65,8 +85,8 @@ export default function HomePage() {
   // 篩選魔王
   const filteredBosses = currentGradeData.bosses.filter((b) => {
     if (selectedSubject === "all") return true;
-    const cat = SUBJECT_CATEGORIES.find((c) => c.id === selectedSubject);
-    return cat ? b.subject.includes(cat.name.slice(0, 2)) : true;
+    const subjects = SUBJECT_FILTERS[selectedSubject];
+    return subjects ? subjects.includes(b.subject) : true;
   });
 
   return (
@@ -84,8 +104,8 @@ export default function HomePage() {
             <div>
               <div className="text-base sm:text-lg font-black tracking-wide text-white flex items-center gap-2">
                 小學生的勇者之路
-                <span className="hidden sm:inline-block px-2 py-0.5 text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30 rounded-full">
-                  台灣 108 課綱版
+                <span className="hidden sm:inline-block px-2.5 py-0.5 text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30 rounded-full">
+                  教育部最新深化課綱・AI數位科技版
                 </span>
               </div>
               <div className="text-[11px] text-slate-400">
@@ -162,9 +182,9 @@ export default function HomePage() {
             </h1>
 
             <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
-              根據台灣教育部現行 <strong>108 課綱</strong> 規劃，全台小學分為三大學習階段。
-              我們將各年級的重點單元、考試難題與課後作業，化身為守門魔王！
-              陪同孩子清楚知道每個年級要學會哪些核心能力，家長也能輕鬆掌握破關陪讀心法。
+              根據台灣教育部最新<strong>深化微調課綱</strong>與《中小學生成式AI教學指引》規範，全台小學分為三大學習階段。
+              我們將各年級的關鍵單元、考試難點與數位科技素養，化身為守門魔王！
+              陪同孩子清晰理解每個年級必備核心能力，家長也能從容掌握 AI 時代的破關陪讀心法。
             </p>
 
             {/* 快速特色標籤 */}
@@ -173,14 +193,45 @@ export default function HomePage() {
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                 低、中、高年級三階段全覆蓋
               </span>
-              <span className="px-3 py-1 rounded-lg bg-slate-800/80 border border-slate-700 text-slate-300 flex items-center gap-1.5">
-                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
-                台灣108課綱核心素養編制
+              <span className="px-3 py-1 rounded-lg bg-cyan-950/40 border border-cyan-500/40 text-cyan-300 flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                教育部最新深化課綱＋生成式AI指引
               </span>
               <span className="px-3 py-1 rounded-lg bg-slate-800/80 border border-slate-700 text-slate-300 flex items-center gap-1.5">
                 <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
                 雙向切換：勇者戰鬥 × 家長錦囊
               </span>
+            </div>
+          </div>
+        </section>
+
+        {/* 教育部最新課綱重點政策速覽卡片 */}
+        <section className="p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-blue-950/40 via-indigo-950/30 to-purple-950/40 border border-indigo-500/30 shadow-lg">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="space-y-1.5">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-[11px] font-bold">
+                <span>📢</span> 教育部最新課綱政策快訊
+              </div>
+              <h3 className="text-base sm:text-lg font-black text-white">
+                台灣課綱已轉型「動態深化微調機制」，不再實施10年全面大翻修（無118課綱）
+              </h3>
+              <p className="text-xs text-slate-300 leading-relaxed max-w-3xl">
+                教育部正式定調課綱不再搞「10年一次的大翻轉」，而是持續推動<strong>「最新深化微調版」</strong>！本平台第一時間融合教育部最新《中小學生成式AI教學指引》、《數位教學指引 3.0》、生生用平板自主學習、以及本土語文部定必修，讓家長與孩子穩穩站在最新教育起跑線上。
+              </p>
+            </div>
+            <div className="flex flex-wrap sm:flex-nowrap gap-2 shrink-0 text-[11px]">
+              <div className="px-3 py-2 rounded-xl bg-slate-900/80 border border-indigo-500/30 text-indigo-200">
+                <div className="font-bold text-amber-400">🤖 生成式 AI 素養</div>
+                <div className="text-[10px] text-slate-400">提示詞技巧與數位防偽</div>
+              </div>
+              <div className="px-3 py-2 rounded-xl bg-slate-900/80 border border-indigo-500/30 text-indigo-200">
+                <div className="font-bold text-emerald-400">📱 生生用平板政策</div>
+                <div className="text-[10px] text-slate-400">數位自主學習與視力自律</div>
+              </div>
+              <div className="px-3 py-2 rounded-xl bg-slate-900/80 border border-indigo-500/30 text-indigo-200">
+                <div className="font-bold text-rose-400">🗣️ 本土語文必修</div>
+                <div className="text-[10px] text-slate-400">多元文化與在地生活體驗</div>
+              </div>
             </div>
           </div>
         </section>
@@ -326,18 +377,18 @@ export default function HomePage() {
           )}
         </section>
 
-        {/* 台灣國小 108 課綱三大學習階段核心素養 */}
+        {/* 台灣國小最新深化課綱三大學習階段核心素養 */}
         <section className="p-6 sm:p-8 rounded-3xl bg-slate-900/60 border border-slate-800 space-y-6">
           <div className="space-y-1">
             <div className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
               <GraduationCap className="w-4 h-4" />
-              台灣教育部 108 課綱導覽
+              台灣教育部最新深化課綱導覽
             </div>
             <h3 className="text-xl sm:text-2xl font-black text-white">
-              國民小學三大學習階段架構
+              國民小學三大學習階段架構（AI 與數位時代增修版）
             </h3>
             <p className="text-xs sm:text-sm text-slate-400">
-              依據十二年國民基本教育課程綱要，國小階段重視啟發學習興趣、養成生活與閱讀習慣。
+              依據十二年國民基本教育課程綱要最新動態微調指引，國小階段全面落實「自主學習、科技素養、本土關懷與全球視野」。
             </p>
           </div>
 
@@ -347,10 +398,10 @@ export default function HomePage() {
                 第一階段
               </div>
               <h4 className="text-base font-bold text-white">
-                國小一、二年級 (低年級)
+                國小一、二年級 (低年級)・感知奠基
               </h4>
               <p className="text-xs text-slate-400 leading-relaxed">
-                著重生活自理與日常常規適應。國語文重點在於注音符號拼讀與基本字詞識字；數學著重百以內數感、加減直式運算與九九乘法熟練；結合「生活課程」進行動植物與社區探索。
+                生活自理與日常常規適應。國語文重點在於注音符號拼讀與繪本自主閱讀；數學著重百以內數感、加減直式運算與九九乘法熟練；結合「生活課程」進行動植物生態與校園探索；全面落實本土語文必修生活化體驗，並養成生生用平板 3010 護眼健康習慣。
               </p>
             </div>
 
@@ -359,10 +410,10 @@ export default function HomePage() {
                 第二階段
               </div>
               <h4 className="text-base font-bold text-white">
-                國小三、四年級 (中年級)
+                國小三、四年級 (中年級)・邏輯開拓
               </h4>
               <p className="text-xs text-slate-400 leading-relaxed">
-                學科獨立分流！生活課程分化為「自然科學」與「社會領域」。數學迎來除法、小數、分數與幾何角度；國語強化段落摘要與心智圖；英語開展情境對話，並引入Scratch程式運算思維。
+                學科獨立分流！生活課程分化為「自然科學」與「社會領域」。數學迎來除法、小數、分數與幾何角度；國語強化段落摘要與心智圖思維；英語開展情境溝通；接軌教育部《數位教學指引 3.0》，透過 Scratch 圖形化積木建立演算法循序與邏輯拆解運算思維。
               </p>
             </div>
 
@@ -371,10 +422,10 @@ export default function HomePage() {
                 第三階段
               </div>
               <h4 className="text-base font-bold text-white">
-                國小五、六年級 (高年級)
+                國小五、六年級 (高年級)・思辨整合
               </h4>
               <p className="text-xs text-slate-400 leading-relaxed">
-                高階抽象思維與批判思考！數學攻克因數倍數、異分母分數加減、比與比值、圓面積與速率；國語文跨入議論文與簡易文言文啟蒙；社會深入台灣歷史脈絡與全球公民永續SDGs。
+                高階抽象思維與批判思考！數學攻克因數倍數、異分母分數、比與比值、圓面積與速率；國語跨入議論文與古典文學啟蒙；深度導入教育部《中小學生成式AI教學指引》——學習提問提示詞（Prompting）、批判性事實查核（Fact-checking）、防範假訊息與 Deepfake，並結合 SDGs 永續議題成為現代地球公民！
               </p>
             </div>
           </div>
@@ -447,14 +498,16 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
           <div className="space-y-1">
             <div className="font-bold text-slate-300">
-              小學生的勇者之路 (Elementary Hero's Quest)
+              小學生的勇者之路 (Elementary Hero&apos;s Quest)
             </div>
             <div>
-              本專案內容依據中華民國教育部《十二年國民基本教育課程綱要總綱》編制設計。
+              本專案依據教育部最新深化微調課綱、《中小學生成式AI教學指引》與《數位教學指引 3.0》編制。
             </div>
           </div>
-          <div className="flex items-center gap-4 text-slate-400">
-            <span>台灣 108 課綱</span>
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-3 text-slate-400">
+            <span className="text-amber-400 font-semibold">教育部最新深化課綱</span>
+            <span>•</span>
+            <span className="text-cyan-400 font-semibold">AI 與數位科技素養</span>
             <span>•</span>
             <span>RPG 遊戲化學習</span>
             <span>•</span>

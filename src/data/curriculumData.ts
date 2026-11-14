@@ -9,14 +9,14 @@ export interface Boss {
   id: string;
   name: string;
   title: string;
-  subject: string; // 國語文 | 數學 | 生活課程 | 自然科學 | 社會 | 英語文 | 科技資訊
+  subject: string; // 國語文 | 數學領域 | 生活課程 | 自然科學 | 社會領域 | 英語文 | 科技資訊（議題融入）
   hp: number;
   difficulty: 1 | 2 | 3 | 4 | 5;
   category: "主線課程魔王" | "段考期中大魔王" | "課後作業試煉" | "日常副本任務";
   icon: string;
   color: string;
   summary: string;
-  curriculumCode: string; // 108課綱條目代碼 (如 數-E-A1, 國-E-B1)
+  curriculumCode: string; // 教育部最新深化課綱條目代碼 (如 數-E-A1, 國-E-B1；科技資訊採用議題融入)
   coreCompetency: string; // 核心素養說明
   homeworkForm: string; // 作業形式
   bossWeakness: string[]; // 破解魔王的攻略技巧
@@ -73,12 +73,18 @@ export const GRADES_DATA: GradeLevel[] = [
     levelName: "Lv.1 初生村：萌芽與生活試煉",
     stageName: "第一學習階段 (國小低年級)",
     themeName: "陽光微風初生村",
-    themeDescription: "剛踏出幼兒園的初心者冒險者，在此鍛鍊日常自理、注音符號與基礎數感！",
-    overview: "一年級的核心是『建立常規與符號啟蒙』。從幼兒園的遊戲過渡到40分鐘課堂專注，注音符號是通往自主閱讀的唯一鑰匙，100以內的數感則是數學王國的基石。",
+    themeDescription: "剛踏出幼兒園的初心者冒險者，在此鍛鍊日常自理、注音符號自主拼讀、本土語言生活體驗與基礎數感！",
+    overview: "一年級的核心是『建立生活常規與符號啟蒙』。從幼兒園的遊戲過渡到40分鐘課堂專注，注音符號是通往自主閱讀的唯一鑰匙，100以內的數感則是數學王國的基石；同時融入本土語文部定必修生活體驗，並落實生生用平板 3010 護眼健康習慣。",
     bossCount: 4,
     bannerGradient: "from-emerald-600 via-teal-600 to-cyan-700",
     accentColor: "emerald",
-    keySkills: ["37個注音符號與結合韻辨識", "100以內數的分與合與加減", "生活自理與校園常規建立", "26個英文字母認讀"],
+    keySkills: [
+      "37個注音符號與結合韻熟練辨讀",
+      "100以內數的分與合與直式加減",
+      "生活自理、校園常規與人際互動",
+      "本土語文生活情境問候與歌謠",
+      "數位載具健康自律（3010護眼原則）",
+    ],
     parentGuide: {
       criticalBottleneck: "【前十週注音符號大撞牆】與【座位坐不住、常忘記帶作業】",
       solutionStrategy: "注音初期混淆（如 ㄣ/ㄥ、ㄓ/ㄗ、二聲與三聲）十分正常，千萬別在作業本上頻繁用橡皮擦擦破紙張破壞信心。多用『親子朗讀繪本』與『日常拼音小遊戲』建立語感。",
@@ -87,6 +93,7 @@ export const GRADES_DATA: GradeLevel[] = [
         "能聽懂老師雙步驟指令（如：翻開第十頁並拿紅筆）",
         "能流暢拼讀常用單字注音，不畏懼讀短繪本",
         "能正確看懂整點與半點的時鐘指針",
+        "使用數位平板學習時能遵守 3010 護眼原則（用 30 分鐘休息 10 分鐘）",
       ],
       parentMagicSpell: "『慢慢來，把字寫對比寫得快更厲害！你是最棒的小冒險家！』",
     },
@@ -102,7 +109,7 @@ export const GRADES_DATA: GradeLevel[] = [
         icon: "🦉",
         color: "text-rose-400 bg-rose-500/10 border-rose-500/30",
         summary: "守護在校園前十週的大考驗！擁有37個聲母韻母與4種聲調變化的法術，容易讓新手勇者眼花撩亂。",
-        curriculumCode: "【國-E-A1】",
+        curriculumCode: "【國-E-B1】",
         coreCompetency: "具備運用注音符號正確拼讀文本之能力，能辨識字音與基本結合韻。",
         homeworkForm: "國語作業簿注音描紅、聽寫練習、每日親子共讀朗讀打卡。",
         bossWeakness: [
@@ -134,7 +141,7 @@ export const GRADES_DATA: GradeLevel[] = [
         icon: "🔢",
         color: "text-blue-400 bg-blue-500/10 border-blue-500/30",
         summary: "由1到100個數字黏液凝聚而成，喜歡考驗勇者『10的分與合』與進退位基礎！",
-        curriculumCode: "【數-E-A1】",
+        curriculumCode: "【數-E-A2】",
         coreCompetency: "能理解100以內的數概念、數的順序與大小，並熟練10以內數的分與合。",
         homeworkForm: "數學習作分合圈圈圖、數數連連看、直式加減填空題。",
         bossWeakness: [
@@ -166,7 +173,7 @@ export const GRADES_DATA: GradeLevel[] = [
         icon: "⏰",
         color: "text-amber-400 bg-amber-500/10 border-amber-500/30",
         summary: "手握長短雙針的時鐘傀儡，經常讓勇者搞混長針與短針代表的意義！",
-        curriculumCode: "【數-E-A2】",
+        curriculumCode: "【數-E-B1】",
         coreCompetency: "認識時鐘的鐘面、長針與短針，能正確報讀『幾點整』與『幾點半』。",
         homeworkForm: "在數學習作上畫時針分針、記錄一天的作息時間表。",
         bossWeakness: [
@@ -197,7 +204,7 @@ export const GRADES_DATA: GradeLevel[] = [
         icon: "🎒",
         color: "text-emerald-400 bg-emerald-500/10 border-emerald-500/30",
         summary: "藏在雜亂書包與走廊奔跑處的混亂怪，喜歡偷走勇者的橡皮擦與水壺！",
-        curriculumCode: "【生-E-B1】",
+        curriculumCode: "【生活-E-A1】",
         coreCompetency: "適應小學生活環境，體會生活常規的重要性，養成良好個人衛生與自理能力。",
         homeworkForm: "每日生活檢核表、座位與書包整理、排隊整隊演練。",
         bossWeakness: [
@@ -226,12 +233,18 @@ export const GRADES_DATA: GradeLevel[] = [
     levelName: "Lv.2 巨石森林：九九乘法與文字森林",
     stageName: "第一學習階段 (國小低年級)",
     themeName: "九九秘境與造字巨石",
-    themeDescription: "脫離純注音的世界，大量生字與部首如雨後春筍，更有數學界的第一道大山『九九乘法』！",
-    overview: "二年級是『具體操作的高峰』。國語開始透過部首與部件拆解漢字，數學迎來最重要的九九乘法與二位數直式加減，並開始接觸公尺與公分的長度度量。",
+    themeDescription: "脫離純注音的世界，大量生字與部首如雨後春筍，征服九九乘法大魔導、幾何測量與本土語文生活日常！",
+    overview: "二年級是『運算與漢字識讀的鞏固關鍵期』。國語透過部件部首高效累積識字量，數學迎來九九乘法連乘與公尺長度量測；生活課程引導探索校園四季生態，並深化本土語文情境聽說與生活化數位載具互動探索。",
     bossCount: 4,
     bannerGradient: "from-blue-600 via-indigo-600 to-violet-700",
     accentColor: "blue",
-    keySkills: ["熟練九九乘法與連加連乘概念", "常用部首與800+國字辨讀造詞", "二位數直式加減進退位精熟", "公分與公尺的量感與長度測量"],
+    keySkills: [
+      "熟練九九乘法連乘與倍數概念",
+      "常用部首與800+國字辨讀造詞",
+      "二位數直式加減進退位精熟",
+      "公分與公尺的量感與長度測量",
+      "本土語文情境聽說與日常問候",
+    ],
     parentGuide: {
       criticalBottleneck: "【九九乘法死記硬背卡在7與8】與【直式加減退位忘記減一】",
       solutionStrategy: "九九乘法不能單純機械式死背，必須先透過『幾個幾』的具體情境（例如3台車有幾顆輪子）理解倍數本質。遇到7的段落卡住，用唱遊節奏或跳格子增加趣味。",
@@ -240,6 +253,7 @@ export const GRADES_DATA: GradeLevel[] = [
         "能自己翻查字典或用部首猜測陌生字的大致意義",
         "能用直尺精準測量文具長度，知道1公尺等於100公分",
         "能寫出結構完整的3~4句小日記表達想法",
+        "能聽懂並用本土語文（台語/客語/原住民語等）進行基礎日常問候",
       ],
       parentMagicSpell: "『乘法是魔法加速器，背熟了你就能一秒算出一整箱寶物！』",
     },
@@ -255,7 +269,7 @@ export const GRADES_DATA: GradeLevel[] = [
         icon: "🐉",
         color: "text-indigo-400 bg-indigo-500/10 border-indigo-500/30",
         summary: "擁有九個不同頭顱的巨龍，最兇猛的兩顆頭分別是『七之怒吼』與『八之狂暴』！",
-        curriculumCode: "【數-E-A1】",
+        curriculumCode: "【數-E-A2】",
         coreCompetency: "理解乘法的意義為『倍』或『同數累加』，熟練十十乘法表（九九乘法），並能流暢應用。",
         homeworkForm: "九九乘法闖關表簽名、習作連乘應用題、隨堂一分鐘乘法閃卡速算。",
         bossWeakness: [
@@ -318,7 +332,7 @@ export const GRADES_DATA: GradeLevel[] = [
         icon: "📏",
         color: "text-blue-400 bg-blue-500/10 border-blue-500/30",
         summary: "手握百米捲尺與十公尺長矛，專門考驗勇者尺有沒有對準『刻度0』！",
-        curriculumCode: "【數-E-A2】",
+        curriculumCode: "【數-E-B1】",
         coreCompetency: "認識長度單位『公分』與『公尺』，熟練量感並能進行長度的同單位與跨單位加減比較。",
         homeworkForm: "拿直尺量課本與橡皮擦長度、公尺與公分的換算填空題。",
         bossWeakness: [
@@ -349,7 +363,7 @@ export const GRADES_DATA: GradeLevel[] = [
         icon: "🦋",
         color: "text-emerald-400 bg-emerald-500/10 border-emerald-500/30",
         summary: "化身為春風、夏荷、秋楓、冬雨，檢驗勇者對校園生態與影子變化的敏銳觀察！",
-        curriculumCode: "【生-E-A2】",
+        curriculumCode: "【生活-E-A2】",
         coreCompetency: "觀察自然現象的規律與變化（如影子長短、動植物生長），體會人與大自然的共存關係。",
         homeworkForm: "自然觀察小日記、種植小豆子或觀察校園大樹的繪圖記錄卡。",
         bossWeakness: [
@@ -378,12 +392,18 @@ export const GRADES_DATA: GradeLevel[] = [
     levelName: "Lv.3 元素試煉塔：學科分流與除法深淵",
     stageName: "第二學習階段 (國小中年級)",
     themeName: "元素高塔與分流峽谷",
-    themeDescription: "國小生涯的分水嶺！課程從半天變成整天，生活課程正式分流為『自然科學』與『社會領域』！",
-    overview: "三年級是小學第一個關鍵震盪期。數學迎來『除法』與『分數初步概念』，國語文章篇幅大幅拉長，並開始獨立學習自然科（力、磁、生物）與社會科（家鄉文化與地圖）。",
+    themeDescription: "國小生涯的分水嶺！課程從半天變成整天，自然科學與社會領域獨立登場，開啟數位素養安全探索！",
+    overview: "三年級是小學第一個關鍵震盪期。數學迎來『除法』與『分數初步概念』，國語文章篇幅大幅拉長；自然科展開實驗探究，社會科走入家鄉地圖；落實教育部《數位教學指引 3.0》，引導孩子學會基礎資訊搜尋、保護網路隱私與數位安全禮儀。",
     bossCount: 5,
     bannerGradient: "from-amber-600 via-orange-600 to-red-700",
     accentColor: "amber",
-    keySkills: ["除法概念（平分與包含）與直式除法", "分數的平分意涵（幾分之幾）", "自然科學實驗觀察與四大元素", "社會科家鄉行政區與生活環境認識", "英語簡易句型與對話"],
+    keySkills: [
+      "除法概念（平分與包含）與直式除法",
+      "分數的平分意涵（幾分之幾）",
+      "自然科學實驗觀察與探究方法",
+      "社會科家鄉行政區與地圖指北判讀",
+      "數位素養 3.0 與安全上網習慣",
+    ],
     parentGuide: {
       criticalBottleneck: "【除法直式商數對齊混亂】與【社會科需要大量記憶理解】",
       solutionStrategy: "三年級孩子開始面臨課業負擔翻倍。數學除法直式一定要養成『商、乘、減、落』的口訣步驟，格子本對齊至關重要。社會科別死背，多翻閱地圖並聊聊居住城鎮的在地故事。",
@@ -392,6 +412,7 @@ export const GRADES_DATA: GradeLevel[] = [
         "能理解『把一個披薩平分成4份，其中的1份是 1/4』",
         "適應每週三到四個全天課的體力與專注度轉換",
         "能自己整理自然實驗器材與記錄實驗結果",
+        "知道不隨意在網路上透露真實姓名、電話與照片等個人隱私",
       ],
       parentMagicSpell: "『三年級是真正的勇者覺醒！學科雖然變多，但代表你探索的世界變得更廣大了！』",
     },
@@ -407,7 +428,7 @@ export const GRADES_DATA: GradeLevel[] = [
         icon: "➗",
         color: "text-blue-400 bg-blue-500/10 border-blue-500/30",
         summary: "一個手持平分天秤，另一個身披分數斗篷。它最厲害的幻術是讓勇者忘記『餘數一定要比除數小』！",
-        curriculumCode: "【數-E-A1, 數-E-A2】",
+        curriculumCode: "【數-E-A2】",
         coreCompetency: "理解除法的意義（平分除與包含除），掌握除法直式演算，並理解單位分數與真分數的實質意義。",
         homeworkForm: "數學習作除法直式計算、分數著色題、除法情境應用題。",
         bossWeakness: [
@@ -532,7 +553,7 @@ export const GRADES_DATA: GradeLevel[] = [
         icon: "🗣️",
         color: "text-purple-400 bg-purple-500/10 border-purple-500/30",
         summary: "嘴裡吐出大量高頻生活單字（Sight Words）與簡易句型，喜歡挑戰勇者的英文聽力與開口膽量！",
-        curriculumCode: "【英-E-A1, 英-E-B1】",
+        curriculumCode: "【英-E-B1】",
         coreCompetency: "具備常用200字基礎字彙認讀能力，能運用簡易教室用語與日常問候進行溝通。",
         homeworkForm: "英語CD聽讀打卡、字母書寫簿、簡易繪本朗讀錄音上傳。",
         bossWeakness: [
@@ -561,12 +582,18 @@ export const GRADES_DATA: GradeLevel[] = [
     levelName: "Lv.4 奧術迷宮：邏輯積木與幾何奧秘",
     stageName: "第二學習階段 (國小中年級)",
     themeName: "奧術迷宮與邏輯之門",
-    themeDescription: "開始接觸抽象的幾何幾度、小數風暴與運算思維程式積木，邏輯大腦全面啟動！",
-    overview: "四年級是思維從『具象直觀』邁入『抽象邏輯』的轉折點。數學出現小數計算、量角器與垂直平行幾何觀念，國語強調長文摘要與成語活用，同時開始融入Scratch圖形化積木程式素養。",
+    themeDescription: "開始接觸抽象的幾何角度、小數風暴與運算思維程式積木，邏輯與 AI 感知大腦全面啟動！",
+    overview: "四年級是思維從『具象直觀』邁入『抽象邏輯』的轉折點。數學出現小數計算、量角器與垂直平行幾何觀念，國語強調長文摘要與成語活用；科技教育深度結合 Scratch 圖形化積木與演算法拆解，啟發對 AI 視覺/語音辨識技術的基本認知。",
     bossCount: 4,
     bannerGradient: "from-purple-600 via-violet-600 to-indigo-800",
     accentColor: "purple",
-    keySkills: ["小數與分數運算（小數點對齊）", "角度測量與三角形、四邊形幾何性質", "Scratch與運算思維流程邏輯", "說明文結構分析與長篇成語閱讀"],
+    keySkills: [
+      "小數與分數直式運算（小數點垂直對齊）",
+      "角度測量（量角器）、三角形與四邊形幾何性質",
+      "Scratch 圖形積木程式設計與三大控制結構",
+      "演算法問題拆解（Decomposition）與流程圖",
+      "AI 基礎感知科技概念（鏡頭與麥克風特徵辨識）",
+    ],
     parentGuide: {
       criticalBottleneck: "【小數點加減對齊忘記對小數點】與【幾何量角器讀錯內外圈刻度】",
       solutionStrategy: "很多孩子拿量角器分不清讀內圈還是外圈數字，教孩子先用肉眼判斷『這是銳角（小於90度）還是鈍角（大於90度）』，答案就不會看反。小數加減務必用直式且『小數點先對齊』。",
@@ -574,7 +601,8 @@ export const GRADES_DATA: GradeLevel[] = [
         "能熟練使用量角器測量並畫出指定度數的角（如 45°, 120°）",
         "直式小數加減時能主動將小數點精準垂直對齊",
         "能說出長方形、正方形、平行四邊形的邊長與角度特徵",
-        "能自己閱讀長篇小說（如兒童版西遊記、三國演義）並抓出主旨",
+        "能自己閱讀長篇小說並抓出主旨段落摘要",
+        "理解程式的三大結構（循序、選擇、重複）並能畫出生活流程圖",
       ],
       parentMagicSpell: "『邏輯就像是一把鑰匙，看穿規律，再複雜的幾何迷陣也是坦途！』",
     },
@@ -590,7 +618,7 @@ export const GRADES_DATA: GradeLevel[] = [
         icon: "🎯",
         color: "text-blue-400 bg-blue-500/10 border-blue-500/30",
         summary: "胸口嵌著一顆跳動的『小數點核心』，如果勇者計算時沒有將小數點排在同一直線上，會引發猛烈的位值崩塌！",
-        curriculumCode: "【數-E-A1, 數-E-A2】",
+        curriculumCode: "【數-E-A2】",
         coreCompetency: "理解一位、二位小數的意義與位值（十分位、百分位），能進行直式小數加減運算與整數乘除小數。",
         homeworkForm: "數學習作小數直式計算、小數生活應用題（金額、公尺、公斤測量）。",
         bossWeakness: [
@@ -621,7 +649,7 @@ export const GRADES_DATA: GradeLevel[] = [
         icon: "📐",
         color: "text-indigo-400 bg-indigo-500/10 border-indigo-500/30",
         summary: "由銳角、直角、鈍角、平角拼裝而成的巨大金字塔，利用內圈與外圈刻度的鏡像迷惑勇者的雙眼！",
-        curriculumCode: "【數-E-A3】",
+        curriculumCode: "【數-E-B1】",
         coreCompetency: "認識角的度數（度），熟練量角器之使用，理解三角形內角和為180度，認識垂直與平行。",
         homeworkForm: "使用量角器測量課本角度、畫指定度數角、找出平行四邊形對邊特徵。",
         bossWeakness: [
@@ -682,18 +710,19 @@ export const GRADES_DATA: GradeLevel[] = [
         category: "日常副本任務",
         icon: "🤖",
         color: "text-cyan-400 bg-cyan-500/10 border-cyan-500/30",
-        summary: "由一行行重複、判斷、循序的 Scratch 程式積木堆砌而成，挑戰勇者的演算法拆解能力！",
-        curriculumCode: "【科-E-A1, 科-E-A2】",
-        coreCompetency: "體驗圖形化程式設計積木，理解程式的三大基本結構（循序、選擇、重複），培養運算思維。",
+        summary: "由一行行重複、判斷、循序的 Scratch 程式積木與 AI 感知模組堆砌而成，挑戰勇者的演算法拆解能力！",
+        curriculumCode: "【議題融入：資訊教育】",
+        coreCompetency: "體驗圖形化程式設計積木，理解程式的三大基本結構（循序、選擇、重複），並初探 AI 視覺與語音感測運算思維。",
         homeworkForm: "完成 Scratch 小貓抓老鼠小專案、畫出日常生活任務的流程圖（Flowchart）。",
         bossWeakness: [
-          "問題拆解法（Decomposition）：把大任務拆成三個小步驟！",
+          "問題拆解法（Decomposition）：把大任務拆成三個清楚的小步驟！",
           "迴圈魔法（Loop）：同樣的動作不要寫10次，用『重複執行 10 次』積木包起來！",
+          "AI 智慧感知初探：認識電腦如何透過鏡頭與麥克風判讀圖像與聲音特徵！",
         ],
         lootReward: {
-          name: "演算法源碼魔杖",
+          name: "演算法與AI智慧魔杖",
           type: "武器",
-          desc: "解鎖邏輯除錯思維，面對繁雜難題能自動梳理流程優先順序！",
+          desc: "解鎖邏輯除錯思維，面對繁雜難題能自動梳理流程優先順序，具備科技新時代思維！",
         },
         parentTips: "程式設計重點不是背代碼，而是『邏輯思維』。用做早餐、泡泡麵的先後順序跟孩子玩『假裝我是機器人，你下指令』的遊戲，就是最好的啟蒙。",
         quiz: {
@@ -712,20 +741,27 @@ export const GRADES_DATA: GradeLevel[] = [
     levelName: "Lv.5 巨龍天梯：因數倍數與長篇思辨",
     stageName: "第三學習階段 (國小高年級)",
     themeName: "巨龍天梯與思辨峰嶺",
-    themeDescription: "步入國小高年級，課業深度全面跳躍！抽象數學三大魔神降臨，語文跨入議論文與長文思辨！",
-    overview: "五年級是全小學數學最容易出現『挫折感斷層』的一年。因數、倍數、質數、公因數公倍數、異分母分數加減通分、體積與表面積，全部需要高度抽象思維。國語開始接觸議論文論點論據，社會深入台灣歷史與地理脈絡。",
+    themeDescription: "步入國小高年級，課業深度全面跳躍！抽象數學數論降臨，語文跨入議論文思辨，接軌教育部《中小學生成式AI教學指引》學會提問探究！",
+    overview: "五年級是全小學最關鍵的思維躍升期。因數、倍數、異分母分數通分需要高階抽象數論思維；國語跨入議論文立論架構；接軌教育部《中小學生成式AI教學指引》，引導孩子學習用提示詞（Prompting）與 AI 討論探究，並具備批判性查證（Fact-checking）與數位倫理意識。",
     bossCount: 5,
     bannerGradient: "from-rose-600 via-pink-600 to-purple-800",
     accentColor: "rose",
-    keySkills: ["因數、倍數、質數與短除法", "異分母分數加減與通分約分", "長方體正方體表面積與體積", "議論文閱讀思辨與論據分析", "台灣歷史四大時期與自然地理風貌"],
+    keySkills: [
+      "因數、倍數、質數短除法與最大公因數",
+      "異分母分數加減、通分約分與小數乘除",
+      "長方體與正方體表面積與體積計算",
+      "議論文結構思辨（論點、論據、論證）",
+      "生成式 AI 提示詞提問（Prompting）與查證素養",
+    ],
     parentGuide: {
-      criticalBottleneck: "【因數倍數找不齊漏掉】與【異分母分數加減忘記通分】",
-      solutionStrategy: "很多孩子小學四年級前數學都拿90分以上，到了五年級突然掉到70分，家長大為驚慌。請理解這不是孩子變笨，而是題目從『算術計算』升級成『數論邏輯』。找因數要養成『彩虹對乘找法（如 1×24, 2×12, 3×8, 4×6）』，通分要先求最小公倍數。",
+      criticalBottleneck: "【因數倍數找不齊漏掉、異分母通分混亂】與【開始接觸網路與生成式 AI（如 ChatGPT），容易直接複製貼上代寫作業】",
+      solutionStrategy: "很多孩子五年級數學成績波動，是因題目升級為『數論邏輯』。通分要先求最小公倍數；針對 AI 工具，教育部指引強調『AI 是思考教練，不是代寫槍手』。鼓勵孩子先自己思考，再用好的提示詞（Prompt）請教 AI，並動手查證 AI 回答是否有幻覺（Hallucination）。",
       growthChecklist: [
         "能用『彩虹對乘』完整列出36或48的所有因數，不漏掉任何一對",
         "熟練短除法求兩個數字的最大公因數（GCD）與最小公倍數（LCM）",
         "能自己看懂議論文中的『論點（主張）』與『論據（證據）』",
         "能說出台灣荷西、鄭氏、清領、日治四大歷史時期的大致特色",
+        "能運用適當提示詞向生成式 AI 諮詢問題，並具備向可靠來源查證事實的習慣",
       ],
       parentMagicSpell: "『高年級是磨練深層智慧的時刻，解開一道難題，比刷十道簡單題更有價值！』",
     },
@@ -741,7 +777,7 @@ export const GRADES_DATA: GradeLevel[] = [
         icon: "🐲",
         color: "text-purple-400 bg-purple-500/10 border-purple-500/30",
         summary: "小學數學最具殺傷力的大魔王！會召喚公因數結界、公倍數迷霧，專門吞噬粗心忘記質數的勇者！",
-        curriculumCode: "【數-E-A1, 數-E-B1】",
+        curriculumCode: "【數-E-A2】",
         coreCompetency: "理解因數、倍數、公因數、公倍數、質數與合數的意涵，熟練短除法求最大公因數與最小公倍數。",
         homeworkForm: "數學習作因倍數應用題、短除法演算、長方形磁磚鋪滿地面的實務題。",
         bossWeakness: [
@@ -773,7 +809,7 @@ export const GRADES_DATA: GradeLevel[] = [
         icon: "⚖️",
         color: "text-blue-400 bg-blue-500/10 border-blue-500/30",
         summary: "手持 1/3 與 1/4 兩塊不同大小的魔法盾牌，嘲笑那些妄想把分母直接相加的冒進勇者！",
-        curriculumCode: "【數-E-A1】",
+        curriculumCode: "【數-E-A2】",
         coreCompetency: "理解等值分數之意義，熟練約分與擴分技巧，能進行異分母分數的加減混合運算。",
         homeworkForm: "異分母分數加減直式運算、帶分數加減換算、分數應用情境題。",
         bossWeakness: [
@@ -804,7 +840,7 @@ export const GRADES_DATA: GradeLevel[] = [
         icon: "🏛️",
         color: "text-rose-400 bg-rose-500/10 border-rose-500/30",
         summary: "高舉『論點之盾』與『論據之矛』，挑戰勇者能不能區分出課文裡哪些是客觀事實、哪些是作者主張！",
-        curriculumCode: "【國-E-A1, 國-E-B3】",
+        curriculumCode: "【國-E-A2】",
         coreCompetency: "閱讀議論文體，能辨別作者的核心主張（論點），評估支持證據（論據）的合理性與結構性。",
         homeworkForm: "議論文段落剖析表、撰寫小論點作文（如：小學生該不該帶手機上學？）。",
         bossWeakness: [
@@ -835,7 +871,7 @@ export const GRADES_DATA: GradeLevel[] = [
         icon: "⛵",
         color: "text-amber-500 bg-amber-500/10 border-amber-500/30",
         summary: "身上刻劃著台灣400年來大航海時代、荷西熱蘭遮城、鄭氏開墾與清代建省的壯闊歷史記憶！",
-        curriculumCode: "【社-E-A1, 社-E-B3】",
+        curriculumCode: "【社-E-A2, 社-E-C3】",
         coreCompetency: "理解台灣歷史重要時期的演進、地理環境對聚落發展的影響，以及多元族群文化之融匯。",
         homeworkForm: "台灣歷史年表整理、古蹟走讀參訪學習單、台灣五大地形與氣候成因報告。",
         bossWeakness: [
@@ -866,7 +902,7 @@ export const GRADES_DATA: GradeLevel[] = [
         icon: "✨",
         color: "text-emerald-400 bg-emerald-500/10 border-emerald-500/30",
         summary: "操縱太陽竿影日行軌跡、夜空北極星尋找術，以及熱的傳導、對流與輻射三種熱能轉移術！",
-        curriculumCode: "【自-E-A2, 自-E-C2】",
+        curriculumCode: "【自-E-A2】",
         coreCompetency: "觀測太陽仰角與四季星空（利用北斗七星或仙后座找北極星），探討熱能傳播機制與保溫原理。",
         homeworkForm: "四季星座盤操作紀錄、太陽竿影長度測量實驗、保溫瓶保溫效果對照實驗。",
         bossWeakness: [
@@ -895,20 +931,28 @@ export const GRADES_DATA: GradeLevel[] = [
     levelName: "Lv.6 終焉試煉神殿：畢業大滿貫與國中銜接",
     stageName: "第三學習階段 (國小高年級)",
     themeName: "終極試煉之頂：畢業聖殿",
-    themeDescription: "國小六年冒險的最高榮耀峰頂！集結全部科目知識，迎戰比與比例、圓面積、國中銜接大考驗！",
-    overview: "六年級是國小冒險的大結局，也是迎接國中青春期的關鍵轉軌。數學的『比與比值』、『速度』、『圓面積與圓周率π』、『基準量與比較量』直接銜接國中一元一次方程式；國語邁向獨立思辨與文言文啟蒙；社會放眼全球SDGs與公民民主制度。",
+    themeDescription: "國小六年冒險的最高榮耀峰頂！集結全部科目知識，迎戰比與比例、圓面積、國中銜接大考驗，具備數位防偽與全球公民視野！",
+    overview: "六年級是國小冒險的大結局，也是迎接國中青春期的關鍵轉軌。數學的『比與比值』、『速度』、『圓面積與圓周率π』、『基準量與比較量』直接銜接國中一元一次方程式；國語邁向獨立思辨與文言文啟蒙；深化數位素養——學習防範網路釣魚、辨析 Deepfake 與假訊息（Fact-checking）；結合聯合國 SDGs 17 項永續發展目標，培養具備國際視野與數位道德的現代世界公民。",
     bossCount: 5,
     bannerGradient: "from-amber-500 via-rose-600 to-purple-900",
     accentColor: "amber",
-    keySkills: ["比與比值、正比反比與比例尺", "圓周率、圓面積與扇形複合圖形", "速率三大公式（距離/時間/速率）", "基準量與比較量應用問題", "全球SDGs永續發展與台灣民主公民素養"],
+    keySkills: [
+      "比與比值、正比反比與比例尺換算",
+      "圓周率、圓面積與扇形複合圖形計算",
+      "速率三大公式（距離/時間/速率）靈活應用",
+      "基準量與比較量應用問題解析",
+      "假訊息查核與數位深偽（Deepfake）防偽素養",
+      "全球 SDGs 永續發展與現代民主法治公民素養",
+    ],
     parentGuide: {
       criticalBottleneck: "【速率三大公式死背容易套錯】與【圓形複合圖形面積計算繁複】",
-      solutionStrategy: "很多孩子面對速率（距離÷時間=速率）題目卡在單位換算（時速轉分速或秒速、公里轉公尺）。請教孩子畫出『距離在最上方、速率與時間在下方』的三角形記憶法。六年級孩子即將面臨國中叛逆期，多以同理傾聽代替說教，陪伴他們建立自主時間規劃能力。",
+      solutionStrategy: "很多孩子面對速率（距離÷時間=速率）題目卡在單位換算（時速轉分速或秒速、公里轉公尺）。請教孩子畫出『距離在最上方、速率與時間在下方』的三角形記憶法。六年級孩子即將面臨國中叛逆期，多以同理傾聽代替說教，陪伴他們建立自主時間規劃與網路使用健康習慣。",
       growthChecklist: [
         "能熟練換算速率單位（如：時速 72 公里 = 秒速 20 公尺）",
         "能計算圓面積（半徑×半徑×3.14）與複合扇形陰影面積",
         "能理解地圖上的比例尺（如 1:50000）代表的真實距離",
         "具備自主規劃每日讀書作息與自律複習的習慣，準備好無縫銜接國中課業",
+        "具備網路資訊查證意識，不隨意轉傳未證實的網路謠言與 Deepfake 影片",
       ],
       parentMagicSpell: "『六年來你戰勝了無數魔王，現在的你已經是身經百戰的真正大勇者！勇往直前吧！』",
     },
@@ -924,7 +968,7 @@ export const GRADES_DATA: GradeLevel[] = [
         icon: "👑",
         color: "text-amber-400 bg-amber-500/10 border-amber-500/30",
         summary: "佇立於畢業聖殿王座的世界Boss！操縱前項與後項的比例天平，正比與反比光束隨時讓勇者失誤墜落！",
-        curriculumCode: "【數-E-A1, 數-E-B2】",
+        curriculumCode: "【數-E-A2】",
         coreCompetency: "理解比、比值、相等的比與最簡整數比，掌握正比關係與比例尺在地圖與生活中的多元應用。",
         homeworkForm: "最簡整數比化簡題、比例尺換算真實長度、調配果汁糖水比率情境綜合大考卷。",
         bossWeakness: [
@@ -937,7 +981,7 @@ export const GRADES_DATA: GradeLevel[] = [
           type: "防具",
           desc: "戴上後洞悉宇宙萬物間的所有比例平衡，國中理化與代數直接獲得終極霸體防禦！",
         },
-        parentTips: "比例尺題目最容易算錯的是『公分換算成公里』少數了5個零（1km = 1000m = 100000cm）。請孩子務必在草稿紙上清清楚楚寫下單位換算步驟。",
+        parentTips: "比例尺題目最容易算錯的是『公分換算成公里』少算了5個零（1km = 1000m = 100000cm）。請孩子務必在草稿紙上清清楚楚寫下單位換算步驟。",
         quiz: {
           question: "地圖上的比例尺標示為 1 : 50000。如果地圖上兩座城堡相距 4 公分，請問實際距離是幾公里？",
           options: ["2 公里", "20 公里", "200 公里", "0.2 公里"],
@@ -1019,7 +1063,7 @@ export const GRADES_DATA: GradeLevel[] = [
         icon: "📜",
         color: "text-rose-400 bg-rose-500/10 border-rose-500/30",
         summary: "身披經典古文與名家散文，考驗勇者掌握小學1800+核心生字庫、成語典故與國中文言文先導理解！",
-        curriculumCode: "【國-E-A1, 國-E-C1】",
+        curriculumCode: "【國-E-A2, 國-E-B3】",
         coreCompetency: "具備獨立閱讀長篇文學、鑑賞名家散文與理解簡易文言小品之能力，能撰寫具備批判深度的長文。",
         homeworkForm: "畢業大專題小論文、文言寓言閱讀心得、畢業演講稿撰寫。",
         bossWeakness: [
@@ -1049,23 +1093,24 @@ export const GRADES_DATA: GradeLevel[] = [
         category: "課後作業試煉",
         icon: "🌍",
         color: "text-amber-500 bg-amber-500/10 border-amber-500/30",
-        summary: "手握聯合國17項永續發展目標（SDGs）與台灣現代民主憲政人權法則，引領勇者邁向國際世界舞台！",
+        summary: "手握聯合國17項永續發展目標（SDGs）、台灣現代公民法治原則與新世代 AI 數位防偽查核法則，引領勇者邁向國際世界舞台！",
         curriculumCode: "【社-E-C1, 社-E-C3】",
-        coreCompetency: "理解民主憲政運作機制、人權保障與全球化議題（氣候變遷、貧富差距、永續資源），成為具備國際視野的現代公民。",
+        coreCompetency: "理解民主憲政運作機制、人權保障、全球化永續議題（氣候變遷、多元包容），並具備辨析網路假訊息、Deepfake 科技與數位倫理思辨能力，成為具國際視野的新世代公民。",
         homeworkForm: "SDGs永續小專案探究海報、模擬公民法庭角色扮演、國際時事分析報告。",
         bossWeakness: [
           "在地行動，全球思考（Think Globally, Act Locally）：從校園減塑做起！",
           "權力分立觀念：行政、立法、司法互相制衡，保障人民基本權利！",
+          "事實查核（Fact-checking）三步驟：追查原始出處、比對多方可信報導、警惕情緒煽動標題！",
         ],
         lootReward: {
           name: "世界公民地球儀之心",
           type: "飾品",
-          desc: "國小六年生涯最高榮譽象徵，證明勇者不僅學會知識，更擁有了關懷社會與世界的胸襟！",
+          desc: "國小六年生涯最高榮譽象徵，證明勇者不僅學會知識，更擁有了關懷全球、明辨是非與運用 AI 科技向善的胸襟！",
         },
-        parentTips: "六年級的孩子已經有強烈正義感與自我意識。跟孩子像大人一樣平等討論社會議題，聽聽他們的觀點，這是孩子成熟的標誌。",
+        parentTips: "六年級的孩子已經有強烈正義感與自我意識。跟孩子像大人一樣平等討論社會議題與 AI 科技倫理，聽聽他們的觀點，這是孩子成熟的標誌。",
         quiz: {
           question: "聯合國提出的 17 項「SDGs」指標，全名是指什麼？",
-          options: ["永續發展目標（Sustainable Development Goals）", "全球學生體育目標", "外太空探測計晝", "數位科技發展標準"],
+          options: ["永續發展目標（Sustainable Development Goals）", "全球學生體育目標", "外太空探測計畫", "數位科技發展標準"],
           correctIndex: 0,
           explanation: "SDGs 是「Sustainable Development Goals（永續發展目標）」，指引全球邁向兼顧經濟、社會與環境的永續未來！",
         },

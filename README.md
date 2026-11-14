@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 小學生的勇者之路 (Elementary Hero's Quest)
 
-## Getting Started
+> 專為台灣家長與國小學童設計的 RPG 冒險式學習地圖與魔王討伐系統！
+> 依據**台灣教育部最新深化微調課綱（新世代 AI 數位科技版）**、《中小學生成式AI教學指引》與《數位教學指引 3.0》深度設計。
 
-First, run the development server:
+---
+
+## 🌟 核心特色
+
+1. **教育部最新深化課綱接軌**：
+   - 教育部已定調課綱不再實施「十年一次全面大翻修（無 118 課綱）」，全面改採**「動態深化微調機制」**。
+   - 深度融入《中小學生成式AI教學指引》：學習提示詞技巧（Prompting）、批判性事實查核（Fact-checking）與數位倫理。
+   - 結合生生用平板自主學習政策（3010 護眼原則）與本土語文部定必修生活化情境。
+2. **RPG 魔王挑戰系統**：
+   - 國小 1~6 年級全覆蓋，共 27 隻學科與生活任務大魔王。
+   - 涵蓋國語文、數學領域、生活課程、自然科學、社會領域、英語文與科技資訊。
+   - 互動答題、即時血條扣減、破關獲得專屬戰利品與戰利品榮譽庫。
+3. **雙向視角自由切換**：
+   - **勇者視角（小孩）**：沉浸式 RPG 打怪冒險、趣味題目與裝備獎勵。
+   - **公會指南（家長）**：各年級學習卡關痛點深入剖析、破關引導心法、核心素養能力檢核清單與應援金句。
+
+---
+
+## 🚀 快速啟動
 
 ```bash
+# 安裝相依套件
+npm install
+
+# 啟動開發伺服器
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# 課綱資料結構與答題自動驗證
+npm run verify:data
+
+# 靜態型別與 Lint 檢查
+npm run lint
+npx tsc --noEmit
+
+# 正式產品建置
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+啟動後請至瀏覽器開啟 [http://localhost:3000](http://localhost:3000) 即可開始冒險！
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📊 課綱資料自動化驗證
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`scripts/verify-curriculum.mjs` 會自動對 `src/data/curriculumData.ts` 進行完整性檢查：
+- 檢查 1~6 年級 27 隻魔王之 ID 唯一性與必填欄位
+- 驗證最新課綱條目代碼格式（如 國-E-A1, 數-E-A1, 議題融入：資訊教育 等）
+- 驗證所有 27 題測驗題目、4 選項與答案正確性索引（correctIndex）
+- 驗證科目分類過濾覆蓋率 100%（27/27）

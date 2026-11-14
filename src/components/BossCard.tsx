@@ -102,7 +102,7 @@ export default function BossCard({
           <div className="flex items-center justify-between text-xs">
             <span className="font-mono text-slate-400 flex items-center gap-1">
               <span className="text-amber-400 font-bold">{boss.curriculumCode}</span>
-              108課綱指標
+              最新課綱指標
             </span>
             <span className="font-mono text-rose-400 font-bold">
               {isDefeated ? "HP: 0 / " + boss.hp : `HP: ${boss.hp} / ${boss.hp}`}

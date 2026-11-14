@@ -2,7 +2,7 @@
 
 import React from "react";
 import { GradeLevel, GRADES_DATA } from "@/data/curriculumData";
-import { MapPin, Trophy, Shield, CheckCircle2, ChevronRight, Sparkles } from "lucide-react";
+import { Trophy, CheckCircle2, ChevronRight, Sparkles } from "lucide-react";
 
 interface RoadmapViewProps {
   currentGrade: number;
@@ -28,7 +28,7 @@ export default function RoadmapView({
           <div className="space-y-1">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 text-xs font-bold">
               <Sparkles className="w-3.5 h-3.5" />
-              台灣 108 課綱・國小六大冒險階段
+              教育部最新深化課綱・國小六大冒險階段
             </div>
             <h3 className="text-xl md:text-2xl font-black text-white">
               小學六年冒險遠征地圖 (Lv.1 ~ Lv.6)

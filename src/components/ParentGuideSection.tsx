@@ -7,8 +7,6 @@ import {
   Sparkles,
   CheckCircle,
   Lightbulb,
-  Heart,
-  HelpCircle,
   Compass,
 } from "lucide-react";
 
@@ -27,14 +25,14 @@ export default function ParentGuideSection({ gradeData }: ParentGuideSectionProp
           <div className="space-y-1">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-300 border border-indigo-500/20 text-xs font-bold">
               <Compass className="w-3.5 h-3.5" />
-              公會會長室・{stageName}
+              公會會長室・{stageName}（{levelName}）
             </div>
             <h3 className="text-xl md:text-2xl font-black text-white flex items-center gap-2">
               <span>🛡️</span>
               {grade} 年級家長專屬導航手冊
             </h3>
             <p className="text-xs md:text-sm text-slate-300 max-w-2xl leading-relaxed">
-              根據台灣教育部 108 課綱精神，國小學習重點在於「素養與解決問題能力」而非死背。以下是 {grade} 年級孩子最常見的挫折點與專屬陪讀指南。
+              根據台灣教育部最新深化課綱與《中小學生成式AI教學指引》精神，國小學習重點在於「探究與解決問題的核心素養」而非死記硬背。以下是 {grade} 年級孩子最常見的挫折點與專屬陪讀指南。
             </p>
           </div>
 
@@ -87,7 +85,7 @@ export default function ParentGuideSection({ gradeData }: ParentGuideSectionProp
         <div className="flex items-center justify-between">
           <h4 className="text-base font-bold text-white flex items-center gap-2">
             <CheckCircle className="w-4 h-4 text-amber-400" />
-            {grade} 年級勇者核心能力檢核清單（108課綱對照）
+            {grade} 年級勇者核心能力檢核清單（教育部最新深化課綱對照）
           </h4>
           <span className="text-xs text-slate-400">可作為家長定期觀察孩子發展之參考</span>
         </div>

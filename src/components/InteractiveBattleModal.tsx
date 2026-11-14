@@ -26,13 +26,15 @@ export default function InteractiveBattleModal({
   // 當切換或重新開啟不同魔王時，確保戰鬥狀態完全重置
   useEffect(() => {
     if (boss) {
+      // 以魔王 id 為 key 重新掛載時仍需重置內部狀態，供獨立使用時保持一致
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSelectedOption(null);
       setHasAnswered(false);
       setCurrentHp(boss.hp);
       setIsAttacking(false);
       setIsVictory(false);
     }
-  }, [boss?.id, boss?.hp]);
+  }, [boss]);
 
   if (!boss) return null;
 
@@ -249,7 +251,7 @@ export default function InteractiveBattleModal({
                 </div>
                 <h4 className="text-3xl font-black text-white">恭喜勇者！順利攻克關卡！</h4>
                 <p className="text-sm text-slate-400 mt-2 max-w-md mx-auto">
-                  你已經掌握了台灣108課綱【{boss.curriculumCode}】核心概念，成功擊潰了【{boss.name}】！
+                  你已經掌握了教育部最新深化課綱{boss.curriculumCode}核心概念，成功擊潰了【{boss.name}】！
                 </p>
               </div>
 
