@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Boss } from "@/data/curriculumData";
 import { Swords, Trophy, Sparkles, X, CheckCircle2, AlertCircle, Heart, Zap } from "lucide-react";
 
@@ -19,9 +19,20 @@ export default function InteractiveBattleModal({
 }: InteractiveBattleModalProps) {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [hasAnswered, setHasAnswered] = useState(false);
-  const [currentHp, setCurrentHp] = useState(boss ? (isDefeated ? 0 : boss.hp) : 0);
+  const [currentHp, setCurrentHp] = useState(boss ? boss.hp : 0);
   const [isAttacking, setIsAttacking] = useState(false);
-  const [isVictory, setIsVictory] = useState(isDefeated);
+  const [isVictory, setIsVictory] = useState(false);
+
+  // 當切換或重新開啟不同魔王時，確保戰鬥狀態完全重置
+  useEffect(() => {
+    if (boss) {
+      setSelectedOption(null);
+      setHasAnswered(false);
+      setCurrentHp(boss.hp);
+      setIsAttacking(false);
+      setIsVictory(false);
+    }
+  }, [boss?.id, boss?.hp]);
 
   if (!boss) return null;
 
@@ -69,13 +80,18 @@ export default function InteractiveBattleModal({
 
         {/* 戰鬥抬頭與魔王資訊 */}
         <div className="p-6 pb-4 border-b border-slate-800 bg-gradient-to-b from-slate-800/60 to-slate-900/60">
-          <div className="flex items-center gap-3 mb-2">
+          <div className="flex items-center gap-3 mb-2 flex-wrap">
             <span className="px-2.5 py-1 text-xs font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 rounded-md">
               {boss.category}
             </span>
             <span className="px-2.5 py-1 text-xs font-medium bg-slate-800 text-slate-300 border border-slate-700 rounded-md">
               {boss.subject}
             </span>
+            {isDefeated && (
+              <span className="px-2.5 py-1 text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded-md">
+                已通關 (切磋練習)
+              </span>
+            )}
             <span className="text-xs text-amber-400/80 font-mono">
               難度：{"★".repeat(boss.difficulty)}
             </span>

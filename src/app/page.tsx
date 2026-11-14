@@ -432,12 +432,15 @@ export default function HomePage() {
       )}
 
       {/* 互動魔王戰 Modal */}
-      <InteractiveBattleModal
-        boss={battleBoss}
-        onClose={() => setBattleBoss(null)}
-        onVictory={handleVictory}
-        isDefeated={battleBoss ? defeatedBosses.includes(battleBoss.id) : false}
-      />
+      {battleBoss && (
+        <InteractiveBattleModal
+          key={battleBoss.id}
+          boss={battleBoss}
+          onClose={() => setBattleBoss(null)}
+          onVictory={handleVictory}
+          isDefeated={defeatedBosses.includes(battleBoss.id)}
+        />
+      )}
 
       {/* 底部 Footer */}
       <footer className="w-full border-t border-slate-800/80 bg-slate-950 py-8 relative z-10 text-xs text-slate-500">
