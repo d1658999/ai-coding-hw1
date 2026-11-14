@@ -18,6 +18,8 @@ import {
   Sparkles,
   CheckCircle2,
   GraduationCap,
+  RotateCcw,
+  Save,
 } from "lucide-react";
 
 const SUBJECT_FILTERS: Record<string, string[]> = {
@@ -77,6 +79,19 @@ export default function HomePage() {
       } catch {}
       return next;
     });
+  };
+
+  const handleResetProgress = () => {
+    if (
+      window.confirm(
+        "確定要重設所有魔王討伐進度與戰利品存檔嗎？此動作將清除瀏覽器的 LocalStorage 紀錄。"
+      )
+    ) {
+      try {
+        localStorage.removeItem("elementary_hero_defeated_bosses");
+      } catch {}
+      setDefeatedBosses([]);
+    }
   };
 
   const currentGradeData: GradeLevel =
@@ -478,6 +493,24 @@ export default function HomePage() {
                   ))}
               </div>
             )}
+
+            {/* 存檔狀態與管理 */}
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-slate-800 text-xs">
+              <div className="flex items-center gap-1.5 text-emerald-400 font-mono text-[11px]">
+                <Save className="w-3.5 h-3.5" />
+                <span>存檔狀態：已即時同步至 LocalStorage (Key: elementary_hero_defeated_bosses)</span>
+              </div>
+              {defeatedBosses.length > 0 && (
+                <button
+                  onClick={handleResetProgress}
+                  className="px-3 py-1.5 rounded-lg bg-rose-950/40 border border-rose-500/30 text-rose-300 hover:bg-rose-900/50 flex items-center gap-1.5 text-[11px] transition-colors"
+                  title="清空瀏覽器 LocalStorage 中的通關存檔"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  重設所有討伐進度
+                </button>
+              )}
+            </div>
           </div>
         </div>
       )}
